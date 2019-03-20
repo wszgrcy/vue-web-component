@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "//run follow this": "",
-    "wc": "vue-cli-service build --target wc --name custom-vue "
+    "wc": "vue-cli-service build --target wc --name custom-vue ",
+    "inspect":"vue inspect > config.js"
   },
   "dependencies": {
     "vue": "2.6.6",

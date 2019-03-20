@@ -1,29 +1,11 @@
-# vue-component
+# 问题说明
+- 安装后运行`npm run wc`
+- 其中`App.vue`中20行处的箭头函数代码,在导出文件`dist/custom-vue.js`已经转换为普通函数
+- 但是这个文件的374行左右查找`const hyphenate`会发现一些依赖命令自动导入的一些文件,没有转换语法
+- 按理说,同样的配置,那么既然自己写的代码能进行转换语法,由cli引入的文件,同样应该可以
+- 没有主动设置忽略哪些文件,不知道是我的配置问题还是说生成的时候确实有些文件是noParse的
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# 猜想
+- 不知道是不是这个原因,因为不支持web-component的,一定会不支持箭头函数特性,所以就算转换低语法,也同样不能引入
+- 但是web-component有一些polyfill可以使一些低版本浏览器也能运行,这时一些函数就必须转换了.
+- 昨天通过实验,手动将导出文件的`custom-vue.js`用Babel再次转换,然后加入polyfill测试是可以跑在ie11这样的原生不支持web-component的浏览器上的,但是之前由于**导出文件**的部分导入文件没有转换,使得启动失败
